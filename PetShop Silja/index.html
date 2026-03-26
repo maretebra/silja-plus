@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="description"
+        content="Pet Shop Šilja Plus - hrana, oprema i pažljivo odabrani proizvodi za vaše ljubimce."
+    >
+    <title>Šilja Plus | Pet Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Bree+Serif&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="#pocetna" aria-label="Šilja Plus početna">
+                <span class="brand-mark">Š</span>
+                <span class="brand-copy">
+                    <strong>Pet Shop</strong>
+                    <span>Šilja Plus</span>
+                </span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span class="sr-only">Otvori meni</span>
+            </button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Glavna navigacija">
+                <a href="#najprodavanije">Najprodavanije</a>
+                <a href="#oprema">Oprema</a>
+                <a href="#ljubimci">Ljubimci</a>
+                <a href="#brendovi">Brendovi</a>
+                <a href="#kontakt">Kontakt</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="pocetna">
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow">Sve za vaše verne prijatelje</p>
+                    <h1>Mesto gde naša ljubav prema vašem ljubimcu počinje</h1>
+                    <p class="hero-text">
+                        Hrana, poslastice, oprema i pažljivo birani brendovi za pse, mačke,
+                        glodare, ptice i ribice.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#kontakt">Kontaktirajte nas</a>
+                        <a class="btn btn-secondary" href="#najprodavanije">Pogledajte ponudu</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual" aria-hidden="true">
+                    <div class="hero-bubble hero-bubble-top"></div>
+                    <div class="hero-bubble hero-bubble-bottom"></div>
+                    <div class="dog-card">
+                        <div class="dog-portrait">
+                            <span>Fotografija psa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-wave" aria-hidden="true">
+                <svg viewBox="0 0 1440 170" preserveAspectRatio="none">
+                    <path
+                        d="M0,78 C120,125 260,10 380,60 C520,118 645,143 760,96 C882,45 1020,7 1140,45 C1262,82 1365,150 1440,105 L1440,170 L0,170 Z"
+                    ></path>
+                    <path
+                        d="M0,110 C120,155 230,65 360,98 C490,132 585,164 742,112 C900,58 1028,58 1165,97 C1299,135 1375,118 1440,90"
+                    ></path>
+                </svg>
+            </div>
+        </section>
+
+        <section class="catalog-section" id="najprodavanije">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Najtraženiji izbor</p>
+                        <h2>Najprodavanije</h2>
+                    </div>
+                    <p>Premium hrana koju kupci najčešće biraju za svakodnevnu ishranu svojih ljubimaca.</p>
+                </div>
+
+                <div class="carousel-shell">
+                    <button class="carousel-btn" type="button" data-carousel-prev aria-label="Prethodni proizvodi">&#8249;</button>
+                    <div class="card-row" data-carousel>
+                        <article class="product-card">
+                            <div class="product-thumb thumb-premil">Premil Dog</div>
+                            <h3>Premil Special 15kg</h3>
+                            <p>Za odrasle pse svih rasa</p>
+                            <strong>5.400,00 RSD</strong>
+                        </article>
+                        <article class="product-card">
+                            <div class="product-thumb thumb-premil">Premil Cat</div>
+                            <h3>Premil Mix 10kg</h3>
+                            <p>Kompletna hrana za mačke</p>
+                            <strong>5.100,00 RSD</strong>
+                        </article>
+                        <article class="product-card">
+                            <div class="product-thumb thumb-premil">Premil Puppy</div>
+                            <h3>Premil Dog 10kg</h3>
+                            <p>Balansirana ishrana za štence</p>
+                            <strong>4.250,00 RSD</strong>
+                        </article>
+                        <article class="product-card">
+                            <div class="product-thumb thumb-premil">Premil Adult</div>
+                            <h3>Premil Sport 15kg</h3>
+                            <p>Za aktivne i energične pse</p>
+                            <strong>5.450,00 RSD</strong>
+                        </article>
+                        <article class="product-card">
+                            <div class="product-thumb thumb-premil">Premil Fish</div>
+                            <h3>Premil Gold 15kg</h3>
+                            <p>Formula sa vitaminima i mineralima</p>
+                            <strong>4.650,00 RSD</strong>
+                        </article>
+                    </div>
+                    <button class="carousel-btn" type="button" data-carousel-next aria-label="Sledeći proizvodi">&#8250;</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="catalog-section catalog-section-alt" id="oprema">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Praktično i kvalitetno</p>
+                        <h2>Oprema za ljubimce</h2>
+                    </div>
+                    <p>Posude, igračke, povoci i dodaci koji svakodnevicu čine lakšom i zabavnijom.</p>
+                </div>
+
+                <div class="carousel-shell">
+                    <button class="carousel-btn" type="button" data-carousel-prev aria-label="Prethodna oprema">&#8249;</button>
+                    <div class="card-row" data-carousel>
+                        <article class="product-card product-card-light">
+                            <div class="product-thumb thumb-bowl">Posuda</div>
+                            <h3>Činija za pse</h3>
+                            <p>Nerđajući čelik, više dimenzija</p>
+                            <strong>300,00 RSD</strong>
+                        </article>
+                        <article class="product-card product-card-light">
+                            <div class="product-thumb thumb-rope">Igračka</div>
+                            <h3>Igračka konopac</h3>
+                            <p>Za vuču, zabavu i trening</p>
+                            <strong>300,00 RSD</strong>
+                        </article>
+                        <article class="product-card product-card-light">
+                            <div class="product-thumb thumb-bowl">Činija</div>
+                            <h3>Činija za pse</h3>
+                            <p>Stabilna i laka za održavanje</p>
+                            <strong>300,00 RSD</strong>
+                        </article>
+                        <article class="product-card product-card-light">
+                            <div class="product-thumb thumb-rope">Igračka</div>
+                            <h3>Gricka konopac</h3>
+                            <p>Za male i srednje pse</p>
+                            <strong>300,00 RSD</strong>
+                        </article>
+                        <article class="product-card product-card-light">
+                            <div class="product-thumb thumb-bowl">Posuda</div>
+                            <h3>Činija za pse</h3>
+                            <p>Protiv klizanja i prevrtanja</p>
+                            <strong>300,00 RSD</strong>
+                        </article>
+                    </div>
+                    <button class="carousel-btn" type="button" data-carousel-next aria-label="Sledeća oprema">&#8250;</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="pet-types" id="ljubimci">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Brza pretraga</p>
+                        <h2>Kupujte prema vrsti ljubimca</h2>
+                    </div>
+                    <p>Brže pronađite proizvode prema vrsti životinje koja vam ulepšava dan.</p>
+                </div>
+
+                <div class="pet-grid">
+                    <article class="pet-card">
+                        <div class="pet-icon pet-icon-cat">M</div>
+                        <h3>Sve za mačke</h3>
+                    </article>
+                    <article class="pet-card">
+                        <div class="pet-icon pet-icon-dog">P</div>
+                        <h3>Sve za pse</h3>
+                    </article>
+                    <article class="pet-card">
+                        <div class="pet-icon pet-icon-bunny">G</div>
+                        <h3>Sve za glodare</h3>
+                    </article>
+                    <article class="pet-card">
+                        <div class="pet-icon pet-icon-bird">Pt</div>
+                        <h3>Sve za ptice</h3>
+                    </article>
+                    <article class="pet-card">
+                        <div class="pet-icon pet-icon-fish">R</div>
+                        <h3>Sve za ribice</h3>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="brand-section" id="brendovi">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Pouzdani partneri</p>
+                        <h2>Kupujte prema brendu</h2>
+                    </div>
+                    <p>Pregled brendova koje možeš dodatno zameniti zvaničnim logotipima kada ih izvezeš iz Figme.</p>
+                </div>
+
+                <div class="brand-grid">
+                    <div class="brand-card brand-premil">PREMIL</div>
+                    <div class="brand-card brand-josera">Josera</div>
+                    <div class="brand-card brand-nekmar">Nekmar</div>
+                    <div class="brand-card brand-monge">monge</div>
+                    <div class="brand-card brand-farmina">farmina</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer" id="kontakt">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">Š+</div>
+                <div>
+                    <h2>Šilja Plus</h2>
+                    <p>Pet shop za hranu, opremu i pažljivo odabrane proizvode za ljubimce.</p>
+                </div>
+            </div>
+
+            <div class="contact-list">
+                <div class="contact-item">
+                    <span class="contact-label">Lokacija</span>
+                    <p>Bate Milivoja 1g, Rajka</p>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Telefon</span>
+                    <a href="tel:+381695753606">+381 69 5753 606</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Mejl</span>
+                    <a href="mailto:mirosvetlariclol02@gmail.com">mirosvetlariclol02@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="socials">
+                <a href="#" aria-label="Instagram">Instagram</a>
+                <a href="#" aria-label="Facebook">Facebook</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
