@@ -34,8 +34,8 @@ Ovaj fajl je jedini izvor istine za podatke na sajtu (footer, kontakt, schema.or
 
 | Podatak | U registru | Trenutno na sajtu | Status |
 |---|---|---|---|
-| Telefon | 069 5575 606 | +381 69 5753 606 | ⚠️ RAZLIKUJE SE — potvrditi |
-| Mejl | mitrovicmarko1602@gmail.com | mirosvetlariclol02@gmail.com | ⚠️ RAZLIKUJE SE — potvrditi |
+| Telefon | 069 5575 606 | +381 69 5753 606 | ✅ vlasnik odlučio 28.10.2026: koristi se broj iz registra — na sajtu pisati +381 69 5575 606 |
+| Mejl | mitrovicmarko1602@gmail.com | mirosvetlariclol02@gmail.com | ✅ vlasnik odlučio 28.10.2026: koristi se mejl iz registra — mitrovicmarko1602@gmail.com |
 | Instagram | — | link je `#` | nije pronađen |
 | Facebook | — | link je `#` | nije pronađen |
 | Radno vreme | — | — | nedostaje |

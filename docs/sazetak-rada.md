@@ -38,8 +38,8 @@ Izvor: javni registar firmi (CompanyWall, podaci iz APR-a). Detalji su u `docs/p
 | Ime | Silja Plus | **Šilja Plus** |
 | Ulica | Bate Milivoja 1g | **Bate Mirkovića 1g** |
 | Mesto | Rajka | **Ralja, 11233, opština Sopot, Beograd** |
-| Telefon | +381 69 5753 606 | 069 5575 606 ⚠️ |
-| Mejl | mirosvetlariclol02@gmail.com | mitrovicmarko1602@gmail.com ⚠️ |
+| Telefon | +381 69 5753 606 | 069 5575 606 ✅ |
+| Mejl | mirosvetlariclol02@gmail.com | mitrovicmarko1602@gmail.com ✅ |
 
 - Pun naziv: Marko Mitrović PR Trgovinska radnja Pet Shop Šilja Plus Ralja
 - PIB 115451135, MB 68376351, delatnost 4776, osnovana 23.12.2025.
@@ -55,7 +55,7 @@ Izvor: javni registar firmi (CompanyWall, podaci iz APR-a). Detalji su u `docs/p
 
 ## Šta čeka odgovor vlasnika
 
-1. **Telefon i mejl:** koji stavljamo na sajt, onaj iz registra ili onaj sa starog sajta?
+1. ~~**Telefon i mejl**~~ — ✅ rešeno 28.10.2026: na sajt idu telefon i mejl **iz registra** (vidi `docs/podaci-o-prodavnici.md`).
 2. **Stavke kataloga „proveriti“:**
    - Josera Mini Adult (koja od 5 mini varijanti) i Josera Junior (JosiDog Junior ili Junior Sensitive)
    - N&D za pse: linija Prime ili Ancestral Grain, i veličina Mini ili Medium & Maxi
@@ -84,6 +84,12 @@ Izvor: javni registar firmi (CompanyWall, podaci iz APR-a). Detalji su u `docs/p
 5. **Deljenje na mrežama:** Open Graph i Twitter oznake; popraviti linkove na društvene mreže koji sada vode na `#`.
 6. **Slike i brzina:** favicon u više veličina, alt tekstovi, `width` i `height` na slikama, fontovi učitani sa samog sajta umesto sa Google Fonts.
 7. **Sadržaj kategorija:** popuniti stranice proizvodima iz `data/proizvodi.json` i dodati koristan tekst; schema.org `Product` za proizvode.
+
+## Podela posla
+
+- **Claude Code (VS Code):** kodiranje sajta — sve izmene HTML/CSS/JS, commit i push na GitHub.
+- **Claude (aplikacija):** pitanja, istraživanje, pisanje završnog rada.
+- Rad na sajtu ide na grani `sredjivanje-sajta`; `main` = živi sajt (GitHub Pages), u njega se spaja tek kad je sve provereno.
 
 ## Napomene za nastavak
 
