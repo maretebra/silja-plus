@@ -7,7 +7,7 @@
 # Za svaki brend pita najnižu i najvišu cenu u dinarima:
 #   Enter      — zadrži postojeću vrednost
 #   broj       — nova cena (može 1490, 1.490 ili 1490 RSD)
-#   -          — obriši cenu (na kartici piše "Cene proverite u radnji")
+#   -          — obriši cenu (na kartici piše "Cene u radnji")
 # Na kraju upisuje data/brendovi.json i ponovo pravi stranice.
 
 require "json"

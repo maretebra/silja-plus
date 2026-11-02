@@ -57,7 +57,7 @@ carouselRows.forEach((row) => {
     const nextButton = parent?.querySelector("[data-carousel-next]");
 
     const scrollAmount = () => {
-        const firstCard = row.querySelector(".product-card");
+        const firstCard = row.firstElementChild;
         return firstCard ? firstCard.getBoundingClientRect().width + 16 : 260;
     };
 

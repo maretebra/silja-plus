@@ -309,35 +309,31 @@ end
 
 def price_range(b)
   min, max = b["cena_min"], b["cena_max"]
-  return "Cene proverite u radnji" if min.nil? && max.nil?
+  return "Cene u radnji" if min.nil? && max.nil?
   return "#{dinars(min || max)} RSD" if min.nil? || max.nil? || min == max
   "od #{dinars(min)} do #{dinars(max)} RSD"
 end
 
-# Kartica brenda; link vodi na spisak proizvoda tog brenda na brendovi.html.
+# Kartica brenda: ime u boji brenda i raspon cena; vodi na ponudu brenda na brendovi.html.
 def brand_tile(b, href_prefix)
-  items = CONFIRMED.select { |p| p["brend"] == b["brend"] }
-  dogs = items.count { |p| p["zivotinja"] == "pas" }
-  cats = items.count { |p| p["zivotinja"] == "mačka" }
-  counts = []
-  counts << "#{dogs} za pse" if dogs > 0
-  counts << "#{cats} za mačke" if cats > 0
-  count_text = counts.empty? ? "Varijante proverite u radnji" : "Proizvoda: #{counts.join(" · ")}"
-  lines = items.map { |p| p["linija"] }.compact.uniq.first(3)
-  <<~HTML.strip
-    <a class="brand-tile" href="#{href_prefix}##{slug(b["brend"])}" style="--brand-color: #{h b["boja"]};">
-                            <span class="brand-tile-name">#{h b["brend"]}</span>
-                            #{lines.empty? ? "" : %(<span class="brand-tile-lines">#{h lines.join(" · ")}</span>)}
-                            <span class="brand-tile-text">#{h b["opis"]}</span>
-                            <span class="brand-tile-count">#{h count_text}</span>
-                            <span class="brand-tile-price">#{h price_range(b)}</span>
-                            <span class="brand-tile-cta">Pogledajte ponudu <span aria-hidden="true">→</span></span>
-                        </a>
-  HTML
+  fill = b["ispuna"] ? " brand-card-filled" : ""
+  %(<a class="brand-card#{fill}" href="#{href_prefix}##{slug(b["brend"])}" style="--brand-color: #{h b["boja"]};">) +
+    %(<span class="brand-card-name">#{h b["brend"]}</span><span class="brand-card-price">#{h price_range(b)}</span></a>)
 end
 
-def brand_tiles(href_prefix)
-  BRANDS.map { |b| brand_tile(b, href_prefix) }.join("\n                    ")
+# Klizni red kartica; strelice stoje uz ivice ekrana i pojavljuju se na hover (main.js, data-carousel).
+def brand_carousel(href_prefix)
+  <<~HTML.strip
+    <div class="carousel-shell brand-carousel">
+                <button class="carousel-btn" type="button" data-carousel-prev aria-label="Prethodni brendovi">&#8249;</button>
+                <div class="container">
+                    <div class="brand-row" data-carousel>
+                        #{BRANDS.map { |b| brand_tile(b, href_prefix) }.join("\n                        ")}
+                    </div>
+                </div>
+                <button class="carousel-btn" type="button" data-carousel-next aria-label="Sledeći brendovi">&#8250;</button>
+            </div>
+  HTML
 end
 
 def catalog_schema(page, animal, label)
@@ -467,10 +463,8 @@ write "index.html", head(page) + header(page) + <<~HTML + footer(page)
                     </div>
                     <p>Hrana za pse i mačke proverenih proizvođača, u pakovanjima za svaki dan i za veće ljubimce.</p>
                 </div>
-                <div class="brand-tiles">
-                    #{brand_tiles("./brendovi.html")}
-                </div>
             </div>
+            #{brand_carousel("./brendovi.html")}
         </section>
 
         <section class="page-section">
@@ -821,10 +815,8 @@ write "brendovi.html", head(page) + header(page) + <<~HTML + footer(page)
             <div class="container">
                 <p class="section-kicker">Partneri</p>
                 <h2 class="section-title">Izdvojeni brendovi</h2>
-                <div class="brand-tiles">
-                    #{brand_tiles("")}
-                </div>
             </div>
+            #{brand_carousel("")}
         </section>
 
         <section class="page-section">
