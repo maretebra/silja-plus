@@ -408,7 +408,6 @@ button { font: inherit; }
 .info-card,
 .feature-card,
 .pet-card,
-.brand-card,
 .stat-card {
     border: 1px solid var(--color-border);
     border-radius: 24px;
@@ -476,20 +475,17 @@ button { font: inherit; }
 [data-carousel-next] { right: -0.5rem; }
 
 .pet-grid,
-.brand-grid,
 .content-grid,
 .stats-grid,
 .feature-grid { display: grid; gap: 1rem; }
 
-.pet-grid,
-.brand-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.pet-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 
 .content-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 .pet-card,
-.brand-card,
 .stat-card { display: grid; place-items: center; text-align: center; }
 
 .pet-card { padding: 1rem; }
@@ -512,15 +508,61 @@ button { font: inherit; }
 .pet-icon-bird { background: #bde889; }
 .pet-icon-fish { background: #79d7ff; }
 
-.brand-card,
 .stat-card { min-height: 110px; padding: 1rem; }
 
-.brand-card { font: 1.45rem var(--font-heading); }
-.brand-premil { color: #fff; background: #df3136; }
-.brand-josera { color: #f49d1e; }
-.brand-nekmar { color: #801a12; }
-.brand-monge { color: #223f90; }
-.brand-farmina { color: #1e63b7; }
+/* Kartice brendova — sadržaj i cene dolaze iz data/brendovi.json */
+.brand-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1rem;
+}
+
+.brand-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 1.6rem 1.25rem 1.2rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 22px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+    color: var(--color-text);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.brand-tile::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 7px;
+    background: var(--brand-color, var(--color-secondary));
+}
+
+.brand-tile:hover,
+.brand-tile:focus-visible {
+    transform: translateY(-4px);
+    border-color: var(--brand-color, var(--color-secondary));
+    box-shadow: 0 18px 36px rgba(34, 37, 83, 0.16);
+}
+
+.brand-tile-name { color: var(--color-primary); font: 1.55rem / 1.1 var(--font-heading); }
+.brand-tile-lines { color: var(--brand-color, var(--color-text-soft)); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; }
+.brand-tile-text { color: var(--color-text-soft); line-height: 1.5; }
+.brand-tile-count { margin-top: auto; padding-top: 0.6rem; border-top: 1px dashed var(--color-border); color: var(--color-text-soft); font-size: 0.92rem; }
+
+.brand-tile-price {
+    align-self: flex-start;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(34, 37, 83, 0.07);
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.brand-tile-cta { color: var(--color-primary); font-weight: 700; }
+.brand-tile:hover .brand-tile-cta span { margin-left: 0.25rem; }
 
 .stat-card strong { display: block; color: var(--color-primary); font: 2rem var(--font-heading); }
 .stat-card span { color: var(--color-text-soft); }
@@ -599,7 +641,6 @@ button { font: inherit; }
     .feature-grid { grid-template-columns: 1fr; }
 
     .pet-grid,
-    .brand-grid,
     .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
     .carousel-btn { display: none; }
@@ -648,7 +689,6 @@ button { font: inherit; }
     .hero-visual { min-height: 360px; }
 
     .pet-grid,
-    .brand-grid,
     .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -665,7 +705,6 @@ button { font: inherit; }
     .card-row { grid-auto-columns: 82%; }
 
     .pet-grid,
-    .brand-grid,
     .stats-grid,
     .footer-grid { grid-template-columns: 1fr; }
 

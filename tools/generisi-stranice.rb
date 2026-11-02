@@ -46,6 +46,10 @@ LOGO_SMALL = "assets/images/logo/silja-plus-logo-108.png"
 
 CATALOG = JSON.parse(File.read(File.join(ROOT, "data/proizvodi.json")))["proizvodi"]
 CONFIRMED = CATALOG.select { |p| p["status"] == "potvrđeno" }
+# Kartice "Kupujte prema brendu": redosled, opis, boja i raspon cena (data/brendovi.json).
+BRANDS = JSON.parse(File.read(File.join(ROOT, "data/brendovi.json")))["brendovi"]
+unknown = BRANDS.map { |b| b["brend"] } - CATALOG.map { |p| p["brend"] }
+abort "data/brendovi.json: brend nije u data/proizvodi.json: #{unknown.join(", ")}" unless unknown.empty?
 
 def h(text)
   CGI.escapeHTML(text.to_s)
@@ -299,6 +303,43 @@ def other_brands_sentence(animal)
   "U ponudi imamo i #{parts.join(", kao i ")}."
 end
 
+def dinars(value)
+  value.to_i.to_s.reverse.scan(/\d{1,3}/).join(".").reverse
+end
+
+def price_range(b)
+  min, max = b["cena_min"], b["cena_max"]
+  return "Cene proverite u radnji" if min.nil? && max.nil?
+  return "#{dinars(min || max)} RSD" if min.nil? || max.nil? || min == max
+  "od #{dinars(min)} do #{dinars(max)} RSD"
+end
+
+# Kartica brenda; link vodi na spisak proizvoda tog brenda na brendovi.html.
+def brand_tile(b, href_prefix)
+  items = CONFIRMED.select { |p| p["brend"] == b["brend"] }
+  dogs = items.count { |p| p["zivotinja"] == "pas" }
+  cats = items.count { |p| p["zivotinja"] == "mačka" }
+  counts = []
+  counts << "#{dogs} za pse" if dogs > 0
+  counts << "#{cats} za mačke" if cats > 0
+  count_text = counts.empty? ? "Varijante proverite u radnji" : "Proizvoda: #{counts.join(" · ")}"
+  lines = items.map { |p| p["linija"] }.compact.uniq.first(3)
+  <<~HTML.strip
+    <a class="brand-tile" href="#{href_prefix}##{slug(b["brend"])}" style="--brand-color: #{h b["boja"]};">
+                            <span class="brand-tile-name">#{h b["brend"]}</span>
+                            #{lines.empty? ? "" : %(<span class="brand-tile-lines">#{h lines.join(" · ")}</span>)}
+                            <span class="brand-tile-text">#{h b["opis"]}</span>
+                            <span class="brand-tile-count">#{h count_text}</span>
+                            <span class="brand-tile-price">#{h price_range(b)}</span>
+                            <span class="brand-tile-cta">Pogledajte ponudu <span aria-hidden="true">→</span></span>
+                        </a>
+  HTML
+end
+
+def brand_tiles(href_prefix)
+  BRANDS.map { |b| brand_tile(b, href_prefix) }.join("\n                    ")
+end
+
 def catalog_schema(page, animal, label)
   items = CONFIRMED.select { |p| p["zivotinja"] == animal }
   {
@@ -426,12 +467,8 @@ write "index.html", head(page) + header(page) + <<~HTML + footer(page)
                     </div>
                     <p>Hrana za pse i mačke proverenih proizvođača, u pakovanjima za svaki dan i za veće ljubimce.</p>
                 </div>
-                <div class="brand-grid">
-                    <a class="brand-card brand-premil" href="./brendovi.html#premil">PREMIL</a>
-                    <a class="brand-card brand-josera" href="./brendovi.html#josera">Josera</a>
-                    <a class="brand-card brand-nekmar" href="./brendovi.html">Nekmar</a>
-                    <a class="brand-card brand-monge" href="./brendovi.html#monge">monge</a>
-                    <a class="brand-card brand-farmina" href="./brendovi.html#farmina">farmina</a>
+                <div class="brand-tiles">
+                    #{brand_tiles("./brendovi.html")}
                 </div>
             </div>
         </section>
@@ -784,12 +821,8 @@ write "brendovi.html", head(page) + header(page) + <<~HTML + footer(page)
             <div class="container">
                 <p class="section-kicker">Partneri</p>
                 <h2 class="section-title">Izdvojeni brendovi</h2>
-                <div class="brand-grid">
-                    <a class="brand-card brand-premil" href="#premil">PREMIL</a>
-                    <a class="brand-card brand-josera" href="#josera">Josera</a>
-                    <div class="brand-card brand-nekmar">Nekmar</div>
-                    <a class="brand-card brand-monge" href="#monge">monge</a>
-                    <a class="brand-card brand-farmina" href="#farmina">farmina</a>
+                <div class="brand-tiles">
+                    #{brand_tiles("")}
                 </div>
             </div>
         </section>

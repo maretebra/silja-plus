@@ -107,6 +107,7 @@ Izvor: javni registar firmi (CompanyWall, podaci iz APR-a). Detalji su u `docs/p
    - Stavke „proveriti“ se **ne prikazuju**; njihovi brendovi se pominju samo imenom („U ponudi imamo i…“).
    - Svaka kategorija ima tekst sa savetima (izbor hrane po uzrastu, rasi, aktivnosti; ptice, glodari, akvarijum, terarijum) sa unutrašnjim linkovima ka proizvodima.
    - `brendovi.html` ima karticu za svaki brend sa linkovima ka proizvodima.
+   - Kartice „Kupujte prema brendu“ (početna i `brendovi.html`, urađeno 2.11.2026): novi dizajn sa trakom u boji brenda, linijama, opisom, brojem potvrđenih proizvoda i rasponom cena. Brendovi, redosled, opis, boja i cene su u `data/brendovi.json` (11 brendova iz kataloga; Nekmar izbačen, SmartDog izostavljen dok se ne potvrdi). Cene su za sada prazne, pa na karticama piše „Cene proverite u radnji“.
    - Početna: H1 i tekst o lokaciji (Ralja, Sopot, Mali Požarevac).
    - Schema: `PetStore` (sa `url`, `logo`, `hasMap`), `WebSite`, `CollectionPage` + `ItemList` sa `Product` (naziv, brend, opis, kategorija).
    - **Nedostaje za Google prikaz proizvoda sa cenom:** cene (`offers`). Dok ih nema, Search Console će za `Product` javljati upozorenje „nedostaje offers“ — to ne kvari rangiranje. Kad vlasnik da cene, dodati ih u JSON i u skriptu.
@@ -115,6 +116,8 @@ Izvor: javni registar firmi (CompanyWall, podaci iz APR-a). Detalji su u `docs/p
 ## Kako se menjaju stranice
 
 HTML fajlovi u korenu se prave skriptom: `ruby tools/generisi-stranice.rb` (iz foldera `silja-plus`). Tekst se menja u skripti, proizvodi u `data/proizvodi.json`, stil u `assets/css/main.css`. Ručne izmene HTML-a se gube pri sledećem pokretanju.
+
+Najniža i najviša cena po brendu unose se komandom `ruby tools/unesi-cene.rb`. Komanda za svaki brend pita cenu (Enter zadržava staru vrednost, `-` je briše), upisuje `data/brendovi.json` i sama ponovo pravi stranice.
 
 Za pregled u pregledaču: macOS ne dozvoljava lokalnom serveru da čita Desktop, pa se sajt kopira u privremeni folder (vidi `../.claude/launch.json`).
 
