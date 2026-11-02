@@ -10,4 +10,5 @@ Pravila:
 - Tekst na sajtu je na srpskom latinici, sa dijakritikom (č, ć, š, ž, đ).
 - Katalog proizvoda: `data/proizvodi.json`. Stavke sa `status: "proveriti"` ne objavljivati dok ih vlasnik ne potvrdi.
 - Radi na grani `sredjivanje-sajta`. `main` je živi sajt (GitHub Pages) — ne menjati ga bez pitanja.
+- HTML stranice se prave skriptom `ruby tools/generisi-stranice.rb` — ne menjati HTML ručno, nego skriptu.
 - Originalni fajlovi sa GitHuba su u `../source/original/` za poređenje.

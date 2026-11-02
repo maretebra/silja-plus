@@ -1,3 +1,40 @@
+/* Fontovi se učitavaju sa sajta (licenca SIL OFL, vidi assets/fonts/). latin-ext pokriva č, ć, š, ž, đ. */
+@font-face {
+    font-family: "Baloo 2";
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url("../fonts/baloo-2-latin-ext.woff2") format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: "Baloo 2";
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url("../fonts/baloo-2-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "Bree Serif";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("../fonts/bree-serif-latin-ext.woff2") format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: "Bree Serif";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("../fonts/bree-serif-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
     --color-primary: #222553;
     --color-secondary: #67cfff;
@@ -9,8 +46,8 @@
     --shadow-card: 0 12px 24px rgba(34, 37, 83, 0.08);
     --container: 1180px;
     --section-space: 2rem 0 4.5rem;
-    --font-heading: "Bree Serif", serif;
-    --font-body: "Baloo 2", cursive;
+    --font-heading: "Bree Serif", Georgia, serif;
+    --font-body: "Baloo 2", "Segoe UI", Arial, sans-serif;
 }
 
 *,
@@ -139,7 +176,7 @@ button { font: inherit; }
 .dropdown-menu {
     position: absolute;
     top: calc(100% + 0.6rem);
-    left: 0;
+    right: 0;
     min-width: 280px;
     display: grid;
     gap: 0.35rem;
@@ -251,6 +288,7 @@ button { font: inherit; }
 .pet-card h3 {
     margin: 0;
     font-family: var(--font-heading);
+    font-weight: 400;
     line-height: 1.08;
 }
 
@@ -306,16 +344,18 @@ button { font: inherit; }
     width: 100%;
     height: 100%;
     display: grid;
-    place-items: end center;
-    padding-bottom: 2rem;
-    border: 1px dashed rgba(255, 255, 255, 0.36);
+    place-items: center;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.24);
     border-radius: 40px;
     background:
         radial-gradient(circle at 60% 30%, rgba(255, 255, 255, 0.45), transparent 24%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(14, 16, 36, 0.1));
     color: rgba(255, 255, 255, 0.9);
-    font: 1.4rem "Bree Serif", serif;
+    font: 1.4rem var(--font-heading);
 }
+
+.dog-portrait img { width: min(70%, 240px); height: auto; filter: drop-shadow(0 18px 30px rgba(10, 12, 31, 0.35)); }
 
 .hero-wave { position: relative; z-index: 2; margin-top: -5rem; }
 .hero-wave svg { display: block; width: 100%; height: 180px; }
@@ -392,7 +432,7 @@ button { font: inherit; }
     margin-bottom: 1rem;
     border-radius: 18px;
     color: #fff;
-    font: 1.25rem "Bree Serif", serif;
+    font: 1.25rem var(--font-heading);
 }
 
 .thumb-premil { background: linear-gradient(180deg, #1b1f47, #3946a5); }
@@ -463,7 +503,7 @@ button { font: inherit; }
     border: 5px solid var(--color-primary);
     border-radius: 50%;
     color: var(--color-primary);
-    font: 1.7rem "Bree Serif", serif;
+    font: 1.7rem var(--font-heading);
 }
 
 .pet-icon-cat { background: #ffd46b; }
@@ -517,14 +557,16 @@ button { font: inherit; }
 
 .footer-brand p,
 .contact-item p,
+.contact-item address,
 .contact-item a {
     margin: 0;
     color: rgba(255, 255, 255, 0.78);
     line-height: 1.6;
 }
 
+.contact-item address { font-style: normal; }
 .contact-list { display: grid; gap: 1rem; }
-.contact-label { display: inline-block; margin-bottom: 0.25rem; color: rgba(255, 255, 255, 0.66); font-size: 0.92rem; }
+.contact-label { display: block; margin-bottom: 0.25rem; color: rgba(255, 255, 255, 0.66); font-size: 0.92rem; }
 
 .socials { display: flex; flex-direction: column; gap: 0.75rem; }
 
@@ -536,6 +578,17 @@ button { font: inherit; }
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.08);
+}
+
+.footer-legal {
+    position: relative;
+    z-index: 1;
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    line-height: 1.5;
 }
 
 @media (max-width: 1080px) {
@@ -580,7 +633,7 @@ button { font: inherit; }
 
     .dropdown-menu {
         position: static;
-        min-width: 100%;
+        min-width: 0;
         margin-top: 0.5rem;
         display: none;
         opacity: 1;
@@ -618,3 +671,109 @@ button { font: inherit; }
 
     .socials { flex-direction: row; flex-wrap: wrap; }
 }
+
+/* Putokaz (breadcrumbs) u zaglavlju podstranica */
+.breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+}
+
+.breadcrumbs li + li::before { content: "›"; margin-right: 0.4rem; }
+.breadcrumbs a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Duži tekstovi sa savetima na stranicama kategorija */
+.text-block {
+    max-width: 75ch;
+    color: var(--color-text);
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+
+.text-block h2 { margin: 2rem 0 0.75rem; color: var(--color-primary); font: clamp(1.6rem, 2.2vw, 2.2rem) / 1.15 var(--font-heading); }
+.text-block h3 { margin: 1.5rem 0 0.5rem; color: var(--color-primary); font: 1.3rem / 1.2 var(--font-heading); }
+.text-block p,
+.text-block ul { margin: 0 0 1rem; }
+.text-block ul { padding-left: 1.25rem; }
+.text-block li { margin-bottom: 0.35rem; }
+.text-block a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Katalog hrane iz data/proizvodi.json */
+.brand-group { margin-top: 2.5rem; scroll-margin-top: 110px; }
+
+.brand-group-title {
+    margin: 0 0 1rem;
+    color: var(--color-primary);
+    font: 1.7rem / 1.15 var(--font-heading);
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.food-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.1rem 1.15rem 1.2rem;
+    border: 1px solid var(--color-border);
+    border-top: 6px solid var(--color-secondary);
+    border-radius: 20px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+    scroll-margin-top: 110px;
+}
+
+.food-card h4 { margin: 0; color: var(--color-primary); font: 1.2rem / 1.2 var(--font-heading); }
+.food-card p { margin: 0; color: var(--color-text-soft); line-height: 1.5; }
+.food-line { color: var(--color-text-soft); font-size: 0.9rem; }
+
+.food-facts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.2rem 0.75rem;
+    margin: auto 0 0;
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--color-border);
+    font-size: 0.95rem;
+}
+
+.food-facts dt { color: var(--color-text-soft); }
+.food-facts dd { margin: 0; color: var(--color-text); }
+
+.note-box {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    border-left: 5px solid var(--color-secondary);
+    border-radius: 14px;
+    background: rgba(103, 207, 255, 0.12);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.note-box a { color: var(--color-primary); text-decoration: underline; }
+
+.brand-list-card { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem; }
+.brand-list-card ul { margin: 0; padding-left: 1.1rem; color: var(--color-text-soft); line-height: 1.6; }
+.brand-list-card a { text-decoration: underline; text-underline-offset: 3px; }
+
+.not-found { text-align: center; }
+.not-found .cta-row { justify-content: center; }
+
+a:focus-visible,
+button:focus-visible { outline: 3px solid var(--color-secondary); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; }
+}
+
+.page-hero-inner .eyebrow { justify-self: start; }
+.section-intro a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
