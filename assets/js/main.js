@@ -31,7 +31,24 @@ dropdowns.forEach((dropdown) => {
     });
 });
 
+const closeMenu = () => {
+    siteHeader?.classList.remove("menu-open");
+    navToggle?.setAttribute("aria-expanded", "false");
+};
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && siteHeader?.classList.contains("menu-open")) {
+        closeMenu();
+        navToggle?.focus();
+    }
+});
+
 document.addEventListener("click", (event) => {
+    // Dodir van zaglavlja zatvara otvoreni meni na telefonu
+    if (siteHeader && !siteHeader.contains(event.target)) {
+        closeMenu();
+    }
+
     dropdowns.forEach((dropdown) => {
         if (!dropdown.contains(event.target)) {
             dropdown.classList.remove("open");
@@ -42,8 +59,7 @@ document.addEventListener("click", (event) => {
 
 navLinks.forEach((link) => {
     link.addEventListener("click", () => {
-        siteHeader?.classList.remove("menu-open");
-        navToggle?.setAttribute("aria-expanded", "false");
+        closeMenu();
         dropdowns.forEach((dropdown) => {
             dropdown.classList.remove("open");
             dropdown.querySelector(".nav-dropdown-toggle")?.setAttribute("aria-expanded", "false");
@@ -68,4 +84,31 @@ carouselRows.forEach((row) => {
     nextButton?.addEventListener("click", () => {
         row.scrollBy({ left: scrollAmount(), behavior: "smooth" });
     });
+
+    // Traka napretka (ako postoji) i strelice se sakrivaju kad ceo red staje na ekran
+    const progress = parent?.querySelector(".carousel-progress");
+    if (!progress) {
+        return;
+    }
+
+    const updateProgress = () => {
+        const maxScroll = row.scrollWidth - row.clientWidth;
+        const scrollable = maxScroll > 1;
+
+        progress.hidden = !scrollable;
+        if (prevButton) prevButton.hidden = !scrollable;
+        if (nextButton) nextButton.hidden = !scrollable;
+        if (!scrollable) {
+            return;
+        }
+
+        const size = row.clientWidth / row.scrollWidth;
+        const ratio = Math.min(Math.max(row.scrollLeft / maxScroll, 0), 1);
+        progress.style.setProperty("--progress-size", `${size * 100}%`);
+        progress.style.setProperty("--progress-offset", `${ratio * (1 / size - 1) * 100}%`);
+    };
+
+    row.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    updateProgress();
 });

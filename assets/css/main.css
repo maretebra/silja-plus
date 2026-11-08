@@ -54,7 +54,12 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+    /* iOS ne uvećava tekst sam kad se telefon okrene */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
 
 body {
     margin: 0;
@@ -397,7 +402,9 @@ button { font: inherit; }
     grid-auto-columns: minmax(220px, 1fr);
     gap: 1rem;
     overflow-x: auto;
-    padding: 0.5rem 0.25rem 0.75rem;
+    /* Donji prostor da senka kartica ne bude odsečena ivicom reda */
+    margin-bottom: -1.5rem;
+    padding: 0.5rem 0.25rem 2.25rem;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
 }
@@ -474,12 +481,54 @@ button { font: inherit; }
 [data-carousel-prev] { left: -0.5rem; }
 [data-carousel-next] { right: -0.5rem; }
 
-.pet-grid,
 .content-grid,
 .stats-grid,
 .feature-grid { display: grid; gap: 1rem; }
 
-.pet-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+/* Vrste ljubimaca u kliznom redu: na velikom ekranu svih 5 u redu, na manjim se prevlači prstom */
+.pet-row {
+    --pet-visible: 5;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - (var(--pet-visible) - 1) * 1rem) / var(--pet-visible));
+    gap: 1rem;
+    overflow-x: auto;
+    /* Kartice klize do ivice ekrana, a senka nije odsečena */
+    margin: -0.5rem -1rem -1.75rem;
+    padding: 0.5rem 1rem 2.25rem;
+    scroll-padding-inline: 1rem;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+}
+
+.pet-row::-webkit-scrollbar { display: none; }
+.pet-row .pet-card { scroll-snap-align: start; }
+
+.pet-carousel .carousel-btn[hidden] { display: none; }
+@media (hover: hover) and (max-width: 1080px) { .pet-carousel .carousel-btn { display: grid; } }
+
+/* Traka koja pokazuje koliko je reda pređeno; main.js je sakriva kad nema šta da se kliza */
+.carousel-progress {
+    height: 4px;
+    margin: 1rem auto 0;
+    width: min(160px, 40%);
+    border-radius: 999px;
+    background: var(--color-border);
+    overflow: hidden;
+}
+
+.carousel-progress[hidden] { display: none; }
+
+.carousel-progress span {
+    display: block;
+    width: var(--progress-size, 100%);
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-primary);
+    transform: translateX(var(--progress-offset, 0%));
+}
 
 .content-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -640,17 +689,30 @@ button { font: inherit; }
     .footer-grid,
     .feature-grid { grid-template-columns: 1fr; }
 
-    .pet-grid,
     .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    /* Tablet: vidi se deo sledeće kartice, da je jasno da se red kliza */
+    .pet-row { --pet-visible: 3.4; }
+
+    /* .section-heading je flex, pa mu grid-template-columns ne menja raspored */
+    .section-heading { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 
     .carousel-btn { display: none; }
 }
 
 @media (max-width: 820px) {
-    .nav-toggle { display: inline-block; }
+    .nav-toggle { display: inline-block; width: 46px; height: 46px; border-radius: 14px; }
+
+    .header-inner { min-height: 68px; }
+    .brand-mark { width: 46px; height: 46px; border-radius: 14px; }
 
     .site-nav {
         position: absolute;
+        /* Ceo meni mora da stane i kad je telefon položen */
+        max-height: calc(100vh - 90px);
+        max-height: calc(100dvh - 90px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
         top: calc(100% + 0.75rem);
         right: 1rem;
         left: 1rem;
@@ -688,26 +750,69 @@ button { font: inherit; }
     .hero-grid { min-height: auto; padding-bottom: 6rem; }
     .hero-visual { min-height: 360px; }
 
-    .pet-grid,
     .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pet-row { --pet-visible: 3.2; }
 }
 
 @media (max-width: 560px) {
-    .container { width: min(calc(100% - 1.25rem), var(--container)); }
+    :root { --section-space: 1.75rem 0 2.75rem; }
+
+    .container { width: min(calc(100% - 2rem), var(--container)); }
 
     .hero h1,
-    .page-hero h1 { max-width: none; font-size: clamp(2.2rem, 12vw, 3.25rem); }
+    .page-hero h1 { max-width: none; font-size: clamp(2.1rem, 10.5vw, 3rem); }
+
+    .hero-text,
+    .page-hero-inner p { font-size: 1rem; line-height: 1.6; }
+    .hero-text { margin-top: 0.9rem; }
 
     .hero-actions,
-    .cta-row { flex-direction: column; }
+    .cta-row { flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
 
     .btn { width: 100%; }
-    .card-row { grid-auto-columns: 82%; }
 
-    .pet-grid,
+    /* Logo u heru je ukras — na telefonu manji, da sadržaj bude bliže vrhu */
+    .hero { padding-top: 1.25rem; }
+    .hero-grid { gap: 1.5rem; padding-bottom: 2.5rem; }
+    .hero-visual { min-height: 0; }
+    .hero-bubble-top { width: 110px; height: 110px; }
+    .hero-bubble-bottom { width: 150px; height: 150px; }
+    .dog-card { width: 200px; aspect-ratio: 1; padding: 0.75rem; border-radius: 32px; }
+    .dog-portrait { padding: 1rem; border-radius: 24px; }
+    .hero-wave { margin-top: -2.5rem; }
+    .hero-wave svg { height: 80px; }
+
+    .page-hero-inner { min-height: 0; padding: 2.25rem 0 2.75rem; }
+
+    .section-heading { margin-bottom: 1.25rem; }
+    .section-heading h2,
+    .section-title { font-size: 1.9rem; }
+
+    .card-row { grid-auto-columns: 78%; }
+    .product-card,
+    .info-card,
+    .feature-card { min-height: 0; }
+    .product-thumb { min-height: 130px; }
+
+    /* Telefon: dve cele kartice i deo treće */
+    .pet-row { --pet-visible: 2.3; gap: 0.75rem; grid-auto-columns: calc((100% - 1.5rem) / var(--pet-visible)); }
+    .pet-card { padding: 0.9rem 0.6rem; align-content: start; }
+    .pet-card h3 { font-size: 1.05rem; }
+    .pet-icon { width: 64px; height: 64px; margin-bottom: 0.6rem; border-width: 4px; font-size: 1.25rem; }
+
+    .brand-row { grid-auto-columns: 160px; gap: 0.75rem; }
+    .brand-card { min-height: 92px; }
+    .brand-card-name { font-size: 1.25rem; }
+
+    .text-block { font-size: 1rem; }
+    .brand-group { margin-top: 2rem; }
+    .brand-group-title { font-size: 1.5rem; }
+    .food-grid { grid-template-columns: 1fr; }
+
     .stats-grid,
     .footer-grid { grid-template-columns: 1fr; }
 
+    .site-footer { padding: 3rem 0 2rem; }
     .socials { flex-direction: row; flex-wrap: wrap; }
 }
 
@@ -743,7 +848,13 @@ button { font: inherit; }
 .text-block a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
 
 /* Katalog hrane iz data/proizvodi.json */
-.brand-group { margin-top: 2.5rem; scroll-margin-top: 110px; }
+.brand-group {
+    margin-top: 2.5rem;
+    scroll-margin-top: 110px;
+    /* Dugačke stranice kataloga: pregledač crta samo grupe blizu ekrana */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+}
 
 .brand-group-title {
     margin: 0 0 1rem;

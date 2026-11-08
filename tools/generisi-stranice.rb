@@ -444,12 +444,17 @@ write "index.html", head(page) + header(page) + <<~HTML + footer(page)
                     </div>
                     <p>Za svaku vrstu ljubimca postoji posebna stranica sa ponudom i savetima za izbor.</p>
                 </div>
-                <div class="pet-grid">
-                    <a class="pet-card" href="./sve-za-macke.html"><div class="pet-icon pet-icon-cat" aria-hidden="true">M</div><h3>Sve za mačke</h3></a>
-                    <a class="pet-card" href="./sve-za-pse.html"><div class="pet-icon pet-icon-dog" aria-hidden="true">P</div><h3>Sve za pse</h3></a>
-                    <a class="pet-card" href="./sve-za-glodare.html"><div class="pet-icon pet-icon-bunny" aria-hidden="true">G</div><h3>Sve za glodare</h3></a>
-                    <a class="pet-card" href="./sve-za-ptice.html"><div class="pet-icon pet-icon-bird" aria-hidden="true">Pt</div><h3>Sve za ptice</h3></a>
-                    <a class="pet-card" href="./akvaristika-teraristika.html"><div class="pet-icon pet-icon-fish" aria-hidden="true">A</div><h3>Akvaristika i teraristika</h3></a>
+                <div class="carousel-shell pet-carousel">
+                    <button class="carousel-btn" type="button" data-carousel-prev aria-label="Prethodne vrste ljubimaca">&#8249;</button>
+                    <div class="pet-row" data-carousel>
+                        <a class="pet-card" href="./sve-za-macke.html"><div class="pet-icon pet-icon-cat" aria-hidden="true">M</div><h3>Sve za mačke</h3></a>
+                        <a class="pet-card" href="./sve-za-pse.html"><div class="pet-icon pet-icon-dog" aria-hidden="true">P</div><h3>Sve za pse</h3></a>
+                        <a class="pet-card" href="./sve-za-glodare.html"><div class="pet-icon pet-icon-bunny" aria-hidden="true">G</div><h3>Sve za glodare</h3></a>
+                        <a class="pet-card" href="./sve-za-ptice.html"><div class="pet-icon pet-icon-bird" aria-hidden="true">Pt</div><h3>Sve za ptice</h3></a>
+                        <a class="pet-card" href="./akvaristika-teraristika.html"><div class="pet-icon pet-icon-fish" aria-hidden="true">A</div><h3>Akvaristika i teraristika</h3></a>
+                    </div>
+                    <button class="carousel-btn" type="button" data-carousel-next aria-label="Sledeće vrste ljubimaca">&#8250;</button>
+                    <div class="carousel-progress" aria-hidden="true"><span></span></div>
                 </div>
             </div>
         </section>
