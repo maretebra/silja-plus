@@ -10,6 +10,7 @@
 
 require "json"
 require "cgi"
+require "digest"
 
 Encoding.default_external = Encoding::UTF_8
 ROOT = File.expand_path("..", __dir__)
@@ -18,6 +19,15 @@ ROOT = File.expand_path("..", __dir__)
 # promeni samo ovaj red i ponovo pokreni skriptu.
 BASE_URL = "https://maretebra.github.io/silja-plus/"
 LASTMOD = "2026-11-02"
+
+# Kratak otisak sadržaja fajla ide u adresu (main.css?v=...): kad se stil ili skripta promene,
+# telefon mora da preuzme novu verziju umesto one iz keša.
+def asset_version(path)
+  Digest::SHA256.file(File.join(ROOT, path)).hexdigest[0, 8]
+end
+
+CSS_VERSION = asset_version("assets/css/main.css")
+JS_VERSION = asset_version("assets/js/main.js")
 
 SHOP = {
   name: "Pet Shop Šilja Plus",
@@ -156,7 +166,7 @@ def head(page)
         <link rel="manifest" href="#{pre}site.webmanifest">
         <link rel="preload" href="#{pre}assets/fonts/baloo-2-latin.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="preload" href="#{pre}assets/fonts/bree-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="stylesheet" href="#{pre}assets/css/main.css">
+        <link rel="stylesheet" href="#{pre}assets/css/main.css?v=#{CSS_VERSION}">
     #{schemas}
     </head>
   HTML
@@ -218,7 +228,7 @@ def footer(page)
             <p class="container footer-legal">#{h SHOP[:legal]} · PIB #{SHOP[:pib]} · MB #{SHOP[:mb]}</p>
         </footer>
 
-        <script src="#{pre}assets/js/main.js" defer></script>
+        <script src="#{pre}assets/js/main.js?v=#{JS_VERSION}" defer></script>
     </body>
     </html>
   HTML
