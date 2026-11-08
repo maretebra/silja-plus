@@ -521,23 +521,18 @@ write "o-nama.html", head(page) + header(page) + <<~HTML + footer(page)
             <div class="container">
                 <p class="section-kicker">Naša priča</p>
                 <h2 class="section-title">Ljubav prema životinjama kao osnova svakog izbora</h2>
-                <p class="section-intro">
-                    Kupac kod nas treba brzo da pronađe ono što mu treba, da dobije iskren savet i da
-                    zna da je hrana koju nosi kući proverena.
-                </p>
-                <div class="content-grid">
-                    <article class="info-card">
-                        <h3>Proveren asortiman</h3>
-                        <p>Biramo hranu, poslastice i opremu koji odgovaraju svakodnevnim potrebama ljubimaca.</p>
-                    </article>
-                    <article class="info-card">
-                        <h3>Jasne kategorije</h3>
-                        <p>Posebne stranice za pse, mačke, ptice, glodare i akvaristiku olakšavaju pretragu.</p>
-                    </article>
-                    <article class="info-card">
-                        <h3>Savet u radnji</h3>
-                        <p>Pomažemo pri izboru hrane prema uzrastu, veličini i osetljivosti vašeg ljubimca.</p>
-                    </article>
+                <div class="story-text">
+                    <p>
+                        Kupac kod nas treba brzo da pronađe ono što mu treba, da dobije iskren savet i da
+                        zna da je hrana koju nosi kući proverena.
+                    </p>
+                    <p>
+                        Zato biramo hranu, poslastice i opremu koji odgovaraju svakodnevnim potrebama ljubimaca.
+                        U radnji vam pomažemo da izaberete hranu prema uzrastu, veličini i osetljivosti vašeg
+                        ljubimca, a na sajtu ponudu lako pronalazite po vrsti: <a href="./sve-za-pse.html">psi</a>,
+                        <a href="./sve-za-macke.html">mačke</a>, <a href="./sve-za-ptice.html">ptice</a>,
+                        <a href="./sve-za-glodare.html">glodari</a> i <a href="./akvaristika-teraristika.html">akvaristika</a>.
+                    </p>
                 </div>
             </div>
         </section>
@@ -546,20 +541,18 @@ write "o-nama.html", head(page) + header(page) + <<~HTML + footer(page)
             <div class="container">
                 <p class="section-kicker">Zašto Šilja Plus</p>
                 <h2 class="section-title">Lokalna prodavnica za ljubimce u Ralji</h2>
-                <p class="section-intro">
-                    Nalazimo se u ulici #{SHOP[:street]} u Ralji, opština Sopot. Za pitanja o ponudi i
-                    pakovanjima pozovite nas na <a href="tel:#{SHOP[:phone]}">#{SHOP[:phone_label]}</a> ili pošaljite mejl na
-                    <a href="mailto:#{SHOP[:email]}">#{SHOP[:email]}</a>.
-                </p>
+                <div class="story-text">
+                    <p>
+                        Nalazimo se u ulici #{SHOP[:street]} u Ralji, opština Sopot. Za pitanja o ponudi i
+                        pakovanjima pozovite nas na <a href="tel:#{SHOP[:phone]}">#{SHOP[:phone_label]}</a> ili pošaljite mejl na
+                        <a href="mailto:#{SHOP[:email]}">#{SHOP[:email]}</a>.
+                    </p>
+                </div>
                 <div class="stats-grid">
                     <div class="stat-card"><div><strong>5</strong><span>vrsta ljubimaca</span></div></div>
                     <div class="stat-card"><div><strong>10+</strong><span>brendova hrane</span></div></div>
                     <div class="stat-card"><div><strong>Ralja</strong><span>Sopot, Beograd</span></div></div>
                     <div class="stat-card"><div><strong>Savet</strong><span>pri svakoj kupovini</span></div></div>
-                </div>
-                <div class="cta-row">
-                    <a class="btn btn-primary" href="./sve-za-pse.html">Hrana i oprema za pse</a>
-                    <a class="btn btn-primary" href="./sve-za-macke.html">Hrana i oprema za mačke</a>
                 </div>
             </div>
         </section>
