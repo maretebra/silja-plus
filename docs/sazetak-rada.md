@@ -44,8 +44,8 @@ Izvor: javni registar firmi (CompanyWall, podaci iz APR-a). Detalji su u `docs/p
 - Pun naziv: Marko Mitrović PR Trgovinska radnja Pet Shop Šilja Plus Ralja
 - PIB 115451135, MB 68376351, delatnost 4776, osnovana 23.12.2025.
 - U registru je firma zavedena kao **„u mirovanju“ od 2.9.2026.** Proveriti pre objave sajta.
-- Koordinate ulice: 44.5695300, 20.5602766
-- Na internetu nisu pronađeni Instagram, Facebook ni Google Business profil.
+- Koordinate radnje (Google profil): 44.5723982, 20.5610720 — stare koordinate ulice sa OpenStreetMap-a (44.5695300, 20.5602766) bile su pogrešne
+- Na internetu nisu pronađeni Instagram ni Facebook. Google profil postoji: PET SHOP „ŠILJA PLUS“ (link od vlasnika 8.11.2026, vidi podaci-o-prodavnici.md).
 
 ### 3. Katalog proizvoda ✅ (delimično)
 - `data/proizvodi.json` ima **59 proizvoda: 38 za pse i 21 za mačke**.
