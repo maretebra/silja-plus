@@ -28,7 +28,8 @@ Ovaj fajl je jedini izvor istine za podatke na sajtu (footer, kontakt, schema.or
 | Opština | Gradska opština Sopot |
 | Grad | Beograd |
 | Država | Srbija |
-| Koordinate ulice (OpenStreetMap) | 44.5695300, 20.5602766 |
+| Koordinate radnje (Google profil, link od vlasnika 8.11.2026) | 44.5723982, 20.5610720 |
+| Google profil | PET SHOP „ŠILJA PLUS“, kgmid /g/11yrdxytfj, CID 14280838311413701890, place_id ChIJZ-hedgChUEcRAl2a9se6L8Y — https://share.google/tUp1xDbRgHPcTp51H |
 
 ## Kontakt
 

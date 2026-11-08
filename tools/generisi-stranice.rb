@@ -42,8 +42,8 @@ SHOP = {
   email: "mitrovicmarko1602@gmail.com",
   pib: "115451135",
   mb: "68376351",
-  lat: 44.5695300,
-  lng: 20.5602766
+  lat: 44.5723982,
+  lng: 20.5610720
 }
 
 # Linkovi ka profilima na mrežama. Prazno dok vlasnik ne otvori profile —
@@ -403,12 +403,12 @@ write "index.html", head(page) + header(page) + <<~HTML + footer(page)
                         <a class="btn btn-secondary" href="./sve-za-macke.html">Hrana za mačke</a>
                     </div>
                 </div>
-                <div class="hero-visual" aria-hidden="true">
-                    <div class="hero-bubble hero-bubble-top"></div>
-                    <div class="hero-bubble hero-bubble-bottom"></div>
+                <div class="hero-visual">
+                    <div class="hero-bubble hero-bubble-top" aria-hidden="true"></div>
+                    <div class="hero-bubble hero-bubble-bottom" aria-hidden="true"></div>
                     <div class="dog-card">
-                        <div class="dog-portrait">
-                            <img src="./#{LOGO}" alt="" width="239" height="308" fetchpriority="high">
+                        <div class="dog-portrait dog-portrait--map">
+                            <iframe src="https://www.google.com/maps?q=PET+SHOP+%22%C5%A0ILJA+PLUS%22+Ralja&amp;z=17&amp;hl=sr-Latn&amp;output=embed" title="Mapa: Pet Shop Šilja Plus, Bate Mirkovića 1g, Ralja" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
