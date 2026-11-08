@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maretebra.github.io/silja-plus/sitemap.xml
