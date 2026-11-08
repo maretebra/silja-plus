@@ -6,6 +6,7 @@ Pre bilo kakvog rada pročitaj:
 
 Pravila:
 - Ime je **Šilja Plus** (ne „Silja“), adresa **Bate Mirkovića 1g, 11233 Ralja, Sopot, Beograd**.
+- Na sajtu se **Sopot ne pominje** (odluka vlasnika, 8.11.2026): adresa na sajtu je „11233 Ralja, Beograd“, ni u tekstu, naslovima, meta opisima ni schema podacima nema Sopota. Adresa sa Sopotom ostaje samo u dokumentaciji, jer je tako u registru.
 - Telefon i mejl: oni iz registra (+381 69 5575 606, mitrovicmarko1602@gmail.com).
 - Tekst na sajtu je na srpskom latinici, sa dijakritikom (č, ć, š, ž, đ).
 - Katalog proizvoda: `data/proizvodi.json`. Stavke sa `status: "proveriti"` ne objavljivati dok ih vlasnik ne potvrdi.

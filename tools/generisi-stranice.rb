@@ -10,6 +10,7 @@
 
 require "json"
 require "cgi"
+require "digest"
 
 Encoding.default_external = Encoding::UTF_8
 ROOT = File.expand_path("..", __dir__)
@@ -19,6 +20,15 @@ ROOT = File.expand_path("..", __dir__)
 BASE_URL = "https://maretebra.github.io/silja-plus/"
 LASTMOD = "2026-11-02"
 
+# Kratak otisak sadržaja fajla ide u adresu (main.css?v=...): kad se stil ili skripta promene,
+# telefon mora da preuzme novu verziju umesto one iz keša.
+def asset_version(path)
+  Digest::SHA256.file(File.join(ROOT, path)).hexdigest[0, 8]
+end
+
+CSS_VERSION = asset_version("assets/css/main.css")
+JS_VERSION = asset_version("assets/js/main.js")
+
 SHOP = {
   name: "Pet Shop Šilja Plus",
   short: "Šilja Plus",
@@ -26,7 +36,6 @@ SHOP = {
   street: "Bate Mirkovića 1g",
   postal: "11233",
   city: "Ralja",
-  municipality: "Sopot",
   region: "Beograd",
   phone: "+381695575606",
   phone_label: "+381 69 5575 606",
@@ -86,7 +95,7 @@ def store_schema
     "@id" => STORE_ID,
     "name" => SHOP[:name],
     "legalName" => SHOP[:legal],
-    "description" => "Pet shop u Ralji (Sopot, Beograd): hrana, poslastice i oprema za pse, mačke, ptice, glodare, akvaristiku i teraristiku.",
+    "description" => "Pet shop u Ralji, Beograd: hrana, poslastice i oprema za pse, mačke, ptice, glodare, akvaristiku i teraristiku.",
     "url" => BASE_URL,
     "logo" => abs(LOGO),
     "image" => abs(LOGO),
@@ -104,7 +113,7 @@ def store_schema
     },
     "geo" => { "@type" => "GeoCoordinates", "latitude" => SHOP[:lat], "longitude" => SHOP[:lng] },
     "hasMap" => "https://www.openstreetmap.org/?mlat=#{SHOP[:lat]}&mlon=#{SHOP[:lng]}#map=17/#{SHOP[:lat]}/#{SHOP[:lng]}",
-    "areaServed" => ["Ralja", "Sopot", "Mali Požarevac", "Beograd"],
+    "areaServed" => ["Ralja", "Mali Požarevac", "Beograd"],
     "currenciesAccepted" => "RSD"
   }.tap { |s| s["sameAs"] = SOCIAL.map(&:last) unless SOCIAL.empty? }
 end
@@ -156,7 +165,7 @@ def head(page)
         <link rel="manifest" href="#{pre}site.webmanifest">
         <link rel="preload" href="#{pre}assets/fonts/baloo-2-latin.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="preload" href="#{pre}assets/fonts/bree-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="stylesheet" href="#{pre}assets/css/main.css">
+        <link rel="stylesheet" href="#{pre}assets/css/main.css?v=#{CSS_VERSION}">
     #{schemas}
     </head>
   HTML
@@ -210,7 +219,7 @@ def footer(page)
                     </div>
                 </div>
                 <div class="contact-list">
-                    <div class="contact-item"><span class="contact-label">Lokacija</span><address>#{h SHOP[:street]}<br>#{SHOP[:postal]} #{SHOP[:city]}, #{SHOP[:municipality]}, #{SHOP[:region]}</address></div>
+                    <div class="contact-item"><span class="contact-label">Lokacija</span><address>#{h SHOP[:street]}<br>#{SHOP[:postal]} #{SHOP[:city]}, #{SHOP[:region]}</address></div>
                     <div class="contact-item"><span class="contact-label">Telefon</span><a href="tel:#{SHOP[:phone]}">#{SHOP[:phone_label]}</a></div>
                     <div class="contact-item"><span class="contact-label">Mejl</span><a href="mailto:#{SHOP[:email]}">#{SHOP[:email]}</a></div>
                 </div>#{socials}
@@ -218,7 +227,7 @@ def footer(page)
             <p class="container footer-legal">#{h SHOP[:legal]} · PIB #{SHOP[:pib]} · MB #{SHOP[:mb]}</p>
         </footer>
 
-        <script src="#{pre}assets/js/main.js" defer></script>
+        <script src="#{pre}assets/js/main.js?v=#{JS_VERSION}" defer></script>
     </body>
     </html>
   HTML
@@ -375,7 +384,7 @@ puts "Pravim stranice:"
 page = {
   path: "index.html",
   title: "Pet Shop Šilja Plus Ralja | Hrana i oprema za ljubimce",
-  description: "Pet shop u Ralji (Sopot): hrana za pse i mačke Premil, Josera, Farmina, Monge, Brit i druge, poslastice i oprema za ptice, glodare i akvarijume.",
+  description: "Pet shop u Ralji: hrana za pse i mačke Premil, Josera, Farmina, Monge, Brit i druge, poslastice i oprema za ptice, glodare i akvarijume.",
   schema: [store_schema, { "@context" => "https://schema.org", "@type" => "WebSite", "name" => SHOP[:name], "url" => BASE_URL, "inLanguage" => "sr-Latn", "publisher" => { "@id" => STORE_ID } }]
 }
 write "index.html", head(page) + header(page) + <<~HTML + footer(page)
@@ -383,7 +392,7 @@ write "index.html", head(page) + header(page) + <<~HTML + footer(page)
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-copy">
-                    <p class="eyebrow">Pet shop u Ralji, opština Sopot</p>
+                    <p class="eyebrow">Pet shop u Ralji, Beograd</p>
                     <h1>Sve za vaše ljubimce na jednom mestu</h1>
                     <p class="hero-text">
                         Pet Shop Šilja Plus u Ralji: hrana, poslastice, oprema i pažljivo birani brendovi
@@ -475,10 +484,10 @@ write "index.html", head(page) + header(page) + <<~HTML + footer(page)
         <section class="page-section">
             <div class="container text-block">
                 <p class="section-kicker">Gde se nalazimo</p>
-                <h2 class="section-title">Pet shop u Ralji, za Sopot i okolinu</h2>
+                <h2 class="section-title">Pet shop u Ralji i okolini</h2>
                 <p>
-                    Pet Shop Šilja Plus nalazi se u ulici #{SHOP[:street]} u Ralji (#{SHOP[:postal]}), u gradskoj opštini Sopot.
-                    Kod nas kupuju vlasnici ljubimaca iz Ralje, Sopota, Malog Požarevca i okolnih sela, kojima je
+                    Pet Shop Šilja Plus nalazi se u ulici #{SHOP[:street]} u Ralji (#{SHOP[:postal]}).
+                    Kod nas kupuju vlasnici ljubimaca iz Ralje, Malog Požarevca i okolnih sela, kojima je
                     bliže da hranu i opremu kupe u komšiluku nego da idu do velikih prodavnica u gradu.
                 </p>
                 <p>
@@ -497,7 +506,7 @@ HTML
 crumbs = [["index.html", "Početna"], ["o-nama.html", "O nama"]]
 page = {
   path: "o-nama.html",
-  title: "O nama | Pet Shop Šilja Plus, Ralja (Sopot)",
+  title: "O nama | Pet Shop Šilja Plus, Ralja",
   description: "Pet Shop Šilja Plus je lokalna prodavnica za kućne ljubimce u Ralji, Bate Mirkovića 1g. Proverena hrana, oprema i iskren savet pri izboru.",
   schema: [breadcrumb_schema(crumbs), {
     "@context" => "https://schema.org", "@type" => "AboutPage", "name" => "O nama", "url" => abs("o-nama.html"),
@@ -511,23 +520,18 @@ write "o-nama.html", head(page) + header(page) + <<~HTML + footer(page)
             <div class="container">
                 <p class="section-kicker">Naša priča</p>
                 <h2 class="section-title">Ljubav prema životinjama kao osnova svakog izbora</h2>
-                <p class="section-intro">
-                    Kupac kod nas treba brzo da pronađe ono što mu treba, da dobije iskren savet i da
-                    zna da je hrana koju nosi kući proverena.
-                </p>
-                <div class="content-grid">
-                    <article class="info-card">
-                        <h3>Proveren asortiman</h3>
-                        <p>Biramo hranu, poslastice i opremu koji odgovaraju svakodnevnim potrebama ljubimaca.</p>
-                    </article>
-                    <article class="info-card">
-                        <h3>Jasne kategorije</h3>
-                        <p>Posebne stranice za pse, mačke, ptice, glodare i akvaristiku olakšavaju pretragu.</p>
-                    </article>
-                    <article class="info-card">
-                        <h3>Savet u radnji</h3>
-                        <p>Pomažemo pri izboru hrane prema uzrastu, veličini i osetljivosti vašeg ljubimca.</p>
-                    </article>
+                <div class="story-text">
+                    <p>
+                        Kupac kod nas treba brzo da pronađe ono što mu treba, da dobije iskren savet i da
+                        zna da je hrana koju nosi kući proverena.
+                    </p>
+                    <p>
+                        Zato biramo hranu, poslastice i opremu koji odgovaraju svakodnevnim potrebama ljubimaca.
+                        U radnji vam pomažemo da izaberete hranu prema uzrastu, veličini i osetljivosti vašeg
+                        ljubimca, a na sajtu ponudu lako pronalazite po vrsti: <a href="./sve-za-pse.html">psi</a>,
+                        <a href="./sve-za-macke.html">mačke</a>, <a href="./sve-za-ptice.html">ptice</a>,
+                        <a href="./sve-za-glodare.html">glodari</a> i <a href="./akvaristika-teraristika.html">akvaristika</a>.
+                    </p>
                 </div>
             </div>
         </section>
@@ -536,20 +540,18 @@ write "o-nama.html", head(page) + header(page) + <<~HTML + footer(page)
             <div class="container">
                 <p class="section-kicker">Zašto Šilja Plus</p>
                 <h2 class="section-title">Lokalna prodavnica za ljubimce u Ralji</h2>
-                <p class="section-intro">
-                    Nalazimo se u ulici #{SHOP[:street]} u Ralji, opština Sopot. Za pitanja o ponudi i
-                    pakovanjima pozovite nas na <a href="tel:#{SHOP[:phone]}">#{SHOP[:phone_label]}</a> ili pošaljite mejl na
-                    <a href="mailto:#{SHOP[:email]}">#{SHOP[:email]}</a>.
-                </p>
+                <div class="story-text">
+                    <p>
+                        Nalazimo se u ulici #{SHOP[:street]} u Ralji. Za pitanja o ponudi i
+                        pakovanjima pozovite nas na <a href="tel:#{SHOP[:phone]}">#{SHOP[:phone_label]}</a> ili pošaljite mejl na
+                        <a href="mailto:#{SHOP[:email]}">#{SHOP[:email]}</a>.
+                    </p>
+                </div>
                 <div class="stats-grid">
                     <div class="stat-card"><div><strong>5</strong><span>vrsta ljubimaca</span></div></div>
                     <div class="stat-card"><div><strong>10+</strong><span>brendova hrane</span></div></div>
-                    <div class="stat-card"><div><strong>Ralja</strong><span>Sopot, Beograd</span></div></div>
+                    <div class="stat-card"><div><strong>Ralja</strong><span>Beograd</span></div></div>
                     <div class="stat-card"><div><strong>Savet</strong><span>pri svakoj kupovini</span></div></div>
-                </div>
-                <div class="cta-row">
-                    <a class="btn btn-primary" href="./sve-za-pse.html">Hrana i oprema za pse</a>
-                    <a class="btn btn-primary" href="./sve-za-macke.html">Hrana i oprema za mačke</a>
                 </div>
             </div>
         </section>
@@ -677,7 +679,7 @@ small_pages = [
   {
     path: "sve-za-ptice.html", name: "Sve za ptice",
     title: "Hrana i oprema za ptice | Pet Shop Šilja Plus Ralja",
-    description: "Mešavine semena za tigrice, kanarince i papagaje, vitamini, kamen za kljun i oprema za kavez. Pet Shop Šilja Plus u Ralji, opština Sopot.",
+    description: "Mešavine semena za tigrice, kanarince i papagaje, vitamini, kamen za kljun i oprema za kavez. Pet Shop Šilja Plus u Ralji, Beograd.",
     h1: "Hrana i oprema za ptice",
     lead: "Mešavine hrane, oprema za kaveze, poslastice i dodaci za veselu i zdravu pticu.",
     heading: "Ponuda za ptice",
@@ -704,7 +706,7 @@ small_pages = [
   {
     path: "sve-za-glodare.html", name: "Sve za glodare",
     title: "Hrana i oprema za glodare | Pet Shop Šilja Plus Ralja",
-    description: "Hrana, seno, piljevina, poslastice i oprema za hrčke, zamorce, kuniće i činčile. Pet Shop Šilja Plus u Ralji, opština Sopot, Beograd.",
+    description: "Hrana, seno, piljevina, poslastice i oprema za hrčke, zamorce, kuniće i činčile. Pet Shop Šilja Plus u Ralji, Beograd.",
     h1: "Hrana i oprema za glodare",
     lead: "Hrana, piljevina, poslastice i sitna oprema za hrčke, zamorce, kuniće i druge male ljubimce.",
     heading: "Ponuda za glodare",
@@ -731,7 +733,7 @@ small_pages = [
   {
     path: "akvaristika-teraristika.html", name: "Akvaristika i teraristika",
     title: "Akvaristika i teraristika | Pet Shop Šilja Plus Ralja",
-    description: "Hrana za ribice, sredstva za vodu, mrežice, termometri, dekoracija i oprema za terarijume. Pet Shop Šilja Plus u Ralji, opština Sopot.",
+    description: "Hrana za ribice, sredstva za vodu, mrežice, termometri, dekoracija i oprema za terarijume. Pet Shop Šilja Plus u Ralji, Beograd.",
     h1: "Akvaristika i teraristika",
     lead: "Hrana, oprema i osnovni dodaci za ribice, akvarijume, terarijume i njihovo održavanje.",
     heading: "Ponuda za akvarijume i terarijume",

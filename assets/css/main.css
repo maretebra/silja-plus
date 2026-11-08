@@ -831,6 +831,24 @@ button { font: inherit; }
 .breadcrumbs li + li::before { content: "›"; margin-right: 0.4rem; }
 .breadcrumbs a { text-decoration: underline; text-underline-offset: 3px; }
 
+/* Tekst „Naša priča“ na stranici O nama */
+.story-text {
+    max-width: 65ch;
+    margin-top: 1.5rem;
+    color: var(--color-text-soft);
+    font-size: 1.1rem;
+    line-height: 1.75;
+}
+
+.story-text p { margin: 0 0 1rem; }
+.story-text p:last-child { margin-bottom: 0; }
+.story-text a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+.story-text + .stats-grid { margin-top: 2rem; }
+
+@media (max-width: 560px) {
+    .story-text { margin-top: 1.25rem; font-size: 1rem; line-height: 1.7; }
+}
+
 /* Duži tekstovi sa savetima na stranicama kategorija */
 .text-block {
     max-width: 75ch;
